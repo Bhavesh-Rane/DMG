@@ -1,0 +1,24 @@
+---
+# tasks file for wordpress
+
+  - name: Copying Wordpress files to K8s Master Node
+    copy:
+        src: "{{ item }}"
+        dest: /root/
+    loop:
+        - pvc_wordpress.yml
+        - wordpress.yml
+
+
+
+  - name: Creating directory over which WordPress container mounts the PersistentVolume at /var/www/html.
+    file:
+        path: /wordpressdata
+        state: directory
+
+
+  - name: Configuration and Setup of Wordpress
+    shell: "kubectl create -f /root/{{ item }}"
+    loop:
+        - pvc_wordpress.yml
+        - wordpress.yml

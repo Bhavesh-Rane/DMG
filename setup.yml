@@ -1,0 +1,13 @@
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Running K8 Role
+      include_role:
+        name: kube_role
+
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Running Wordpress Role
+      include_role:
+        name: wordpress
